@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.by.dao.TJingDao">
+
+    <resultMap type="com.by.entity.TJing" id="TJingMap">
+        <result property="jingId" column="jing_id" jdbcType="INTEGER"/>
+        <result property="jingFalstmoney" column="jing_falstmoney" jdbcType="INTEGER"/>
+        <result property="jingFalstdate" column="jing_falstdate" jdbcType="TIMESTAMP"/>
+        <result property="jingLastdate" column="jing_lastdate" jdbcType="TIMESTAMP"/>
+        <result property="jingAgreemoney" column="jing_agreemoney" jdbcType="INTEGER"/>
+        <result property="jingIdea" column="jing_idea" jdbcType="VARCHAR"/>
+        <result property="jingReview" column="jing_review" jdbcType="VARCHAR"/>
+        <result property="jingZhuang" column="jing_zhuang" jdbcType="TIMESTAMP"/>
+        <result property="jingMoneyimplement" column="jing_moneyimplement" jdbcType="VARCHAR"/>
+        <result property="jingImg" column="jing_img" jdbcType="VARCHAR"/>
+        <result property="reId" column="re_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TJingMap">
+        select
+          jing_id, jing_falstmoney, jing_falstdate, jing_lastdate, jing_agreemoney, jing_idea, jing_review, jing_zhuang, jing_moneyimplement, jing_img, re_id
+        from test.t_jing
+        where jing_id = #{jingId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TJingMap">
+        select
+          jing_id, jing_falstmoney, jing_falstdate, jing_lastdate, jing_agreemoney, jing_idea, jing_review, jing_zhuang, jing_moneyimplement, jing_img, re_id
+        from test.t_jing
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TJingMap">
+        select
+          jing_id, jing_falstmoney, jing_falstdate, jing_lastdate, jing_agreemoney, jing_idea, jing_review, jing_zhuang, jing_moneyimplement, jing_img, re_id
+        from test.t_jing
+        <where>
+            <if test="jingId != null">
+                and jing_id = #{jingId}
+            </if>
+            <if test="jingFalstmoney != null">
+                and jing_falstmoney = #{jingFalstmoney}
+            </if>
+            <if test="jingFalstdate != null">
+                and jing_falstdate = #{jingFalstdate}
+            </if>
+            <if test="jingLastdate != null">
+                and jing_lastdate = #{jingLastdate}
+            </if>
+            <if test="jingAgreemoney != null">
+                and jing_agreemoney = #{jingAgreemoney}
+            </if>
+            <if test="jingIdea != null and jingIdea != ''">
+                and jing_idea = #{jingIdea}
+            </if>
+            <if test="jingReview != null and jingReview != ''">
+                and jing_review = #{jingReview}
+            </if>
+            <if test="jingZhuang != null">
+                and jing_zhuang = #{jingZhuang}
+            </if>
+            <if test="jingMoneyimplement != null and jingMoneyimplement != ''">
+                and jing_moneyimplement = #{jingMoneyimplement}
+            </if>
+            <if test="jingImg != null and jingImg != ''">
+                and jing_img = #{jingImg}
+            </if>
+            <if test="reId != null">
+                and re_id = #{reId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="jingId" useGeneratedKeys="true">
+        insert into test.t_jing(jing_falstmoney, jing_falstdate, jing_lastdate, jing_agreemoney, jing_idea, jing_review, jing_zhuang, jing_moneyimplement, jing_img, re_id)
+        values (#{jingFalstmoney}, #{jingFalstdate}, #{jingLastdate}, #{jingAgreemoney}, #{jingIdea}, #{jingReview}, #{jingZhuang}, #{jingMoneyimplement}, #{jingImg}, #{reId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update test.t_jing
+        <set>
+            <if test="jingFalstmoney != null">
+                jing_falstmoney = #{jingFalstmoney},
+            </if>
+            <if test="jingFalstdate != null">
+                jing_falstdate = #{jingFalstdate},
+            </if>
+            <if test="jingLastdate != null">
+                jing_lastdate = #{jingLastdate},
+            </if>
+            <if test="jingAgreemoney != null">
+                jing_agreemoney = #{jingAgreemoney},
+            </if>
+            <if test="jingIdea != null and jingIdea != ''">
+                jing_idea = #{jingIdea},
+            </if>
+            <if test="jingReview != null and jingReview != ''">
+                jing_review = #{jingReview},
+            </if>
+            <if test="jingZhuang != null">
+                jing_zhuang = #{jingZhuang},
+            </if>
+            <if test="jingMoneyimplement != null and jingMoneyimplement != ''">
+                jing_moneyimplement = #{jingMoneyimplement},
+            </if>
+            <if test="jingImg != null and jingImg != ''">
+                jing_img = #{jingImg},
+            </if>
+            <if test="reId != null">
+                re_id = #{reId},
+            </if>
+        </set>
+        where jing_id = #{jingId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from test.t_jing where jing_id = #{jingId}
+    </delete>
+
+</mapper>
